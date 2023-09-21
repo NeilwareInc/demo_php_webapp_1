@@ -1,0 +1,45 @@
+version: '3'
+services:
+    php-web-app1:
+        image: php-web-app1:newest
+        build:
+            context: .
+            dockerfile: Dockerfile
+        container_name: php-web-app1
+        ports:
+            - "80:80"
+        volumes:
+            - ./www:/var/www/html/
+        links:
+            - db
+        networks:
+            - default
+    db:
+        container_name: database
+        image: mysql:5.7.28
+        ports:
+            - "3306:3306"
+        environment:
+            MYSQL_DATABASE: myDb
+            MYSQL_USER: ranjit
+            MYSQL_PASSWORD: ranjit
+            MYSQL_ROOT_PASSWORD: ranjit
+        volumes:
+            - ./dump:/docker-entrypoint-initdb.d
+            - persistent:/var/lib/mysql
+        networks:
+            - default
+    phpmyadmin:
+        container_name: database_ui
+        image: phpmyadmin/phpmyadmin
+        links:
+            - db:db
+        ports:
+            - 82:80
+        environment:
+            MYSQL_USER: ranjit
+            MYSQL_PASSWORD: ranjit
+            MYSQL_ROOT_PASSWORD: ranjit
+volumes:
+    persistent:
+

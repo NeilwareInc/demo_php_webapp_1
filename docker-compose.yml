@@ -1,11 +1,11 @@
 version: '3'
 services:
-    php-web-app1:
-        image: php-web-app1:newest
+    demo_php_webapp_1:
+        image: demo_php_webapp_1:newest
         build:
             context: .
             dockerfile: Dockerfile
-        container_name: php-web-app1
+        container_name: demo_php_webapp_1
         ports:
             - "80:80"
         volumes:

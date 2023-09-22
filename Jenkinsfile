@@ -11,14 +11,14 @@ pipeline{
         stage("Deploy in Container") {
             steps {
                 sh "docker-compose build"
-                sh "docker-compose up -d"
+                sh "docker-compose up -d --remove-orphans"
             }
         }
         
         stage("Backup to DockerHub") {
             steps {
-                sh "docker tag php-web-app1:newest florenceomoruyi/php-web-app1:${env.IMAGE_TAG}"
-                sh "docker push florenceomoruyi/php-web-app1:${env.IMAGE_TAG}"
+                sh "docker tag demo_php_webapp_1:newest aovlabile/demo_php_webapp_1:${env.IMAGE_TAG}"
+                sh "docker push aovlabile/demo_php_webapp_1:${env.IMAGE_TAG}"
             }
         }
     }
